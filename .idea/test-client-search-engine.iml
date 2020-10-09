@@ -11,5 +11,7 @@
     <orderEntry type="library" name="@types/jquery" level="application" />
     <orderEntry type="library" name="jquery-ui" level="application" />
     <orderEntry type="library" name="@types/jqueryui" level="application" />
+    <orderEntry type="library" name="Chart" level="application" />
+    <orderEntry type="library" name="index" level="application" />
   </component>
 </module>

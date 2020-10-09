@@ -18,14 +18,16 @@ $(document).ready(function () {
     }
 
     let searchEngine = elasticlunr(function () {
+      this.setRef("Sku");
       for (let idx in DatabaseSetting.tables[0].index) {
-        this.addField(idx);
-        this.setRef(idx);
+        this.addField(DatabaseSetting.tables[0].index[idx]);
       }
     });
 
+    window.searchEngine = searchEngine;
+
     ! function() {
-      console.log("indexeDB init");
+      console.log("indexedDB init");
 
       var req = indexedDB.open(DatabaseSetting.name, DatabaseSetting.version);
 
@@ -60,7 +62,7 @@ $(document).ready(function () {
     var IDBFuncSet = {
       //write
       addData: function(table, data) {
-        var req = indexedDB.open(DatabaseSetting.name, DatabaseSetting.version);
+        let req = indexedDB.open(DatabaseSetting.name, DatabaseSetting.version);
 
         req.onsuccess = function(event) {
           try {
@@ -68,7 +70,6 @@ $(document).ready(function () {
             var db = req.result;
             var transaction = db.transaction([table], "readwrite");
             var objectStore = transaction.objectStore(table);
-            searchEngine.addDoc(data);
             var objectStoreRequest = objectStore.add(data);
           } catch (e) {
             console.log("addDataFunction table or data null error");
@@ -89,16 +90,24 @@ $(document).ready(function () {
       }
     }
 
-    for(var i in window.products){
-      IDBFuncSet.addData("products",window.products[i]);
+    let req = indexedDB.open(DatabaseSetting.name, DatabaseSetting.version);
+    req.onsuccess = function () {
+      let db = req.result;
+      let transaction = db.transaction(["products"], "readwrite");
+      let objectStore = transaction.objectStore("products");
+      let count = objectStore.count()
+      count.onsuccess = function () {
+        if(count.result === 0) {
+          for(let i in window.products){
+            IDBFuncSet.addData("products",window.products[i]);
+          }
+        }
+      }
     }
 
-    let searchProductsInput = $("#search-product");
+    for(let i in window.products){
+      searchEngine.addDoc(window.products[i]);
+    }
 
-    searchProductsInput.autocomplete({
-      source: function (request, response) {
-        response(searchEngine.search(request.term));
-      }
-    });
   }
 });

@@ -22,20 +22,54 @@
 
   <meta name="theme-color" content="#fafafa">
 </head>
+<body>
   <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <label for="search-product">Try to search some products here!</label>
+  <label for="search-product">Try to search some products here! Result will appear bellow.</label>
   <input id="search-product">
+  <button id="search-product-btn">Search</button>
+  <div style="display: flex; flex-direction: row;">
+    <div>
+      <div style="max-width: 400px">
+        <canvas id="search-engine" width="400" height="400" style="display: block; width: 400px; height: 400px;"></canvas>
+      </div>
+      <p>Perform searching on testing-keywords datasets</p>
+    </div>
+    <div>
+      <div style="max-width: 400px">
+        <canvas id="search-engine-results" width="400" height="400" style="display: block; width: 400px; height: 400px;"></canvas>
+      </div>
+      <p>Numbers of search results</p>
+    </div>
+    <div>
+      Results by search engine 1
+      <ul id="results-se1"></ul>
+    </div>
+    <div>
+      Results by search engine 2
+      <ul id="results-se2"></ul>
+    </div>
+    <div>
+      Results by search engine 3
+      <ul id="results-se3"></ul>
+    </div>
+  </div>
 
+  <div style="max-width: 400px">
+    <canvas id="comparison-engine" width="400" height="400" style="display: block; width: 400px; height: 400px;"></canvas>
+  </div>
 
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.5.1.min.js"><\/script>')</script>
-  <script src="js/vendor/jquery-ui.min.js"></script>
+  <script src="//www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/Chart.min.js"><\/script>')</script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script>window.jQuery.ui || document.write('<script src="js/vendor/jquery-ui.min.js"><\/script>')</script>
   <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/test.js"></script>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
