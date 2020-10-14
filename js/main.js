@@ -1,5 +1,3 @@
-var elasticlunr = require("elasticlunr");
-
 $(document).ready(function () {
   //init indexedDB
   if (!window.indexedDB) {
@@ -16,15 +14,6 @@ $(document).ready(function () {
         unique: [false, false, false, false, false, false]
       }]
     }
-
-    let searchEngine = elasticlunr(function () {
-      this.setRef("Sku");
-      for (let idx in DatabaseSetting.tables[0].index) {
-        this.addField(DatabaseSetting.tables[0].index[idx]);
-      }
-    });
-
-    window.searchEngine = searchEngine;
 
     ! function() {
       console.log("indexedDB init");
@@ -104,10 +93,5 @@ $(document).ready(function () {
         }
       }
     }
-
-    for(let i in window.products){
-      searchEngine.addDoc(window.products[i]);
-    }
-
   }
 });
